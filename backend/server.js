@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+
 const express = require('express')
 const mongoose = require('mongoose') // use this object to connect to the database
 const workoutRoutes = require('./routes/workouts')
