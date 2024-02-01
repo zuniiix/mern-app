@@ -1,7 +1,29 @@
+import { useEffect, useState } from 'react'
+
 const Home = () => {
+    const [workouts, setWorkouts] = useState(null) // to begin with state is null BUT if the res is ok then update workouts using setWorkouts and the value is is going to be the const json
+
+    useEffect(() => {
+        // fetch workouts from api
+        const fetchWorkouts = async () => {
+            const response = await fetch('/api/workouts') // fetch the data and store the response in response
+            const json = await response.json()
+
+            // check if the response is ok
+            if (response.ok) {
+                setWorkouts(json)
+            } 
+        }
+
+        fetchWorkouts()
+    }, []) // dependecy array, will only fire once when the component first renders
     return (
         <div className="home">
-            <h2>Home</h2>
+            <div className="workouts">
+                {workouts && workouts.map((workout) => (
+                    <p key={workout._id}>{workout.title}</p>
+                ))}
+            </div>
         </div>
     )
 }
