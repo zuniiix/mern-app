@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 // components
-import workoutDetails from '../components/workoutDetails'
+import WorkoutDetails from '../components/workoutDetails'
 
 const Home = () => {
     const [workouts, setWorkouts] = useState(null) // to begin with state is null BUT if the res is ok then update workouts using setWorkouts and the value is is going to be the const json
@@ -24,7 +24,7 @@ const Home = () => {
         <div className="home">
             <div className="workouts">
                 {workouts && workouts.map((workout) => (
-                    <workoutDetails key={workout._id} workout={workout} />
+                    <WorkoutDetails key={workout._id} workout={workout} />
                 ))}
             </div>
         </div>
