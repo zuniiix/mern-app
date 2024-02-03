@@ -47,7 +47,6 @@ const WorkoutForm = () => {
                 onChange={(e) => setTitle(e.target.value)} //user types in workout title
                 value={title} // two way data binding set val of import to be title state
             />
-            <br/>
 
             <label>Load:</label>
             <input
@@ -55,7 +54,6 @@ const WorkoutForm = () => {
                 onChange={(e) => setLoad(e.target.value)} 
                 value={load} 
             />
-            <br/>
 
             <label>Reps:</label>
             <input
@@ -63,9 +61,9 @@ const WorkoutForm = () => {
                 onChange={(e) => setReps(e.target.value)} 
                 value={reps} 
             />
-            <br/>
 
             <button>Add Workout</button>
+            {error && <div className="error">{error}</div>}
         </form>
     )
 }
