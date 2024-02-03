@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 // components
 import WorkoutDetails from '../components/workoutDetails'
+import WorkoutForm from '../components/WorkoutForm'
 
 const Home = () => {
     const [workouts, setWorkouts] = useState(null) // to begin with state is null BUT if the res is ok then update workouts using setWorkouts and the value is is going to be the const json
@@ -27,6 +28,7 @@ const Home = () => {
                     <WorkoutDetails key={workout._id} workout={workout} />
                 ))}
             </div>
+            <WorkoutForm/>
         </div>
     )
 }
