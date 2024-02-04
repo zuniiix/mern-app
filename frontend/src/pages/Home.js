@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
 
 // components
-import WorkoutDetails from '../components/workoutDetails'
+import WorkoutDetails from '../components/WorkoutDetails'
 import WorkoutForm from '../components/WorkoutForm'
 
-const Home = () => {
-    const [workouts, setWorkouts] = useState(null) // to begin with state is null BUT if the res is ok then update workouts using setWorkouts and the value is is going to be the const json
+const Home = () => { 
+    const {workouts, dispatch} = useWorkoutsContext()
 
     useEffect(() => {
         // fetch workouts from api
@@ -15,17 +17,18 @@ const Home = () => {
 
             // check if the response is ok
             if (response.ok) {
-                setWorkouts(json)
+                dispatch({type: 'SET_WORKOUTS', payload: json}) // fire this dispatch function which in turn fires workoutsRedcucer and passes is in the action (set_workouts)
             } 
         }
 
         fetchWorkouts()
-    }, []) // dependecy array, will only fire once when the component first renders
+    }, [dispatch]) // dependecy array, will only fire once when the component first renders
+
     return (
         <div className="home">
             <div className="workouts">
-                {workouts && workouts.map((workout) => (
-                    <WorkoutDetails key={workout._id} workout={workout} />
+                {workouts && workouts.map( workout => (
+                    <WorkoutDetails workout={workout} key={workout._id} />
                 ))}
             </div>
             <WorkoutForm/>

@@ -1,1 +1,5 @@
-{}
+{
+  "dependencies": {
+    "react-round-div": "^1.3.3"
+  }
+}
