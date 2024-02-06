@@ -8,6 +8,7 @@ const WorkoutForm = () => { //UI in sync with database
     const [load, setLoad] = useState('')
     const [reps, setReps] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
     // reach out to api and take event object
     const handleSubmit = async (e) => {
@@ -29,12 +30,14 @@ const WorkoutForm = () => { //UI in sync with database
         // check if response was okay
         if (!response.ok) {
             setError(json.error) 
+            setEmptyFields(json.emptyFields) // setting empty fields
         }
         if (response.ok) {
             setTitle('')
             setLoad('')
             setReps('')
             setError(null) // in case there was an error prev
+            setEmptyFields([])// set empty fields to an empty array
             console.log('new workout added', json)
             dispatch({type: 'CREATE_WORKOUT', payload: json})
         }
@@ -50,6 +53,7 @@ const WorkoutForm = () => { //UI in sync with database
                 type="text"
                 onChange={(e) => setTitle(e.target.value)} //user types in workout title
                 value={title} // two way data binding set val of import to be title state
+                className={ emptyFields.includes('title') ? 'error' : ''}
             />
 
             <label>Load:</label>
@@ -57,6 +61,7 @@ const WorkoutForm = () => { //UI in sync with database
                 type="number"
                 onChange={(e) => setLoad(e.target.value)} 
                 value={load} 
+                className={ emptyFields.includes('load') ? 'error' : ''}
             />
 
             <label>Reps:</label>
@@ -64,6 +69,7 @@ const WorkoutForm = () => { //UI in sync with database
                 type="number"
                 onChange={(e) => setReps(e.target.value)} 
                 value={reps} 
+                className={ emptyFields.includes('reps') ? 'error' : ''}
             />
 
             <button>Add Workout</button>
