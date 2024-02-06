@@ -1,6 +1,9 @@
 import { useState } from "react"
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
 
-const WorkoutForm = () => {
+const WorkoutForm = () => { //UI in sync with database 
+    const { dispatch } = useWorkoutsContext() // destructure the dispatch function from the useWorkoutsContext 
+
     const [title, setTitle] = useState('')
     const [load, setLoad] = useState('')
     const [reps, setReps] = useState('')
@@ -33,6 +36,7 @@ const WorkoutForm = () => {
             setReps('')
             setError(null) // in case there was an error prev
             console.log('new workout added', json)
+            dispatch({type: 'CREATE_WORKOUT', payload: json})
         }
     }
 

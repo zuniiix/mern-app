@@ -14,6 +14,13 @@ export const workoutsReducer = (state, action) => {
             return {
                 workouts: [action.payload, ...state.workouts] // adding that new workout to the array , spread current state 
             } // keep local state in sync w database so we dispatch createworkout when workout is created etc
+            // when we return the new value of the state we say that the workout is a new array where we put in that new workout and take exist. state workout and spread
+        case 'DELETE_WORKOUT':
+            return {
+                // filter through the workouts before we make a change, true if they remain ,false if we want to take out
+                // check if id of that workout is equal to the id of the one that we want to delete 
+                workouts: state.workouts.filter((w) => w._id !== action.payload._id)
+            }
         default:
             return state
     }
